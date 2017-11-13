@@ -1,0 +1,10 @@
+{
+    "prefix":"x/",
+    "commandSuffix": ".js",
+    "commandPrefix": "Commands/",
+    "commandLoader": [
+        "help",
+        "ping",
+        "status"
+    ]
+}
