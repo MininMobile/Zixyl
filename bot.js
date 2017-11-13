@@ -1,17 +1,29 @@
+// NODE.JS REQUIREMENTS
 const Discord = require("discord.js"),
+      moment = require('moment'),
       fs = require('fs'),
-      client = new Discord.Client();
+      path = require('path'),
+      config = require(path.join(__dirname + "/../config.json"));
+      bot = new Discord.Client();
 
+// VARIABLES
 const prefix = "x/";
 
-client.on('ready', () => {
-  log(`Logged in on ${client.guilds.size} servers!`);
+// FUNCTIONS
+function log(text) {
+  console.log(moment().format('LTS') + ' | ' + text);
+}
+
+// CONNECTION EVENTS
+bot.on('ready', () => {
+  log(`Logged in on ${bot.guilds.size} servers!`);
 });
 
-client.on('message', msg => {
-  if (msg.content === prefix + 'ping') {
-    msg.reply(':ping_pong: Pong');
+// ON MESSAGE
+bot.on('message', async message => {
+  if (message.content === prefix + 'ping') {
+    message.reply(':ping_pong: Pong');
   }
 });
 
-client.login(fs.readFile('/etc/hosts', 'utf8', function (err,data) { if (err) { return console.log(err); } return data; }));
+bot.login(config.token);

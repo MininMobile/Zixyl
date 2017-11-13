@@ -1,5 +1,5 @@
 # Zixyl
-A Discord bot which is made by HexDev and MinDev (<-- he succ).
+A Discord bot made by HexDev and MinDev.
 
 ## Credits
 Hexdev & MinDev - Bot Development
