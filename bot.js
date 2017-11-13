@@ -1,5 +1,6 @@
 // NODE.JS REQUIREMENTS
 const Discord = require("discord.js"),
+      moment = require('moment'),
       fs = require('fs'),
       bot = new Discord.Client();
 
@@ -23,4 +24,6 @@ bot.on('message', async message => {
   }
 });
 
-bot.login(fs.readFile('../zixyl.txt', 'utf8', function (err,data) { if (err) { return console.log(err); } return data; }));
+var token = fs.readFile('../zixyl.txt', 'utf8', function (err,data) { return data; });
+log(token)
+bot.login(token);
