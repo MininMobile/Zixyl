@@ -21,11 +21,23 @@ function log(text) {
 
 // CONNECTION EVENTS
 bot.on('ready', () => {
+<<<<<<< HEAD
+  log(`Connected to Discord Servers.`);
+=======
   log(`Connected to ${bot.guilds.size} servers!`);
+>>>>>>> refs/remotes/origin/master
 });
 
 // ON MESSAGE
 bot.on('message', async message => {
+<<<<<<< HEAD
+  if (message.content === prefix + 'ping') {
+    message.reply(':ping_pong: Pong\n:house: ${bot.guilds.size}');
+  }
+});
+
+bot.login(config.token);
+=======
   let command = message.content.split(" ")[0].substr(config.prefix.length);
   let arguments = message.content.split(" "); arguments[0].substr(config.prefix.length);
 
@@ -38,3 +50,4 @@ bot.on('message', async message => {
 });
 
 bot.login(token.token);
+>>>>>>> refs/remotes/origin/master
