@@ -2,6 +2,8 @@
 const Discord = require("discord.js"),
       moment = require('moment'),
       fs = require('fs'),
+      path = require('path'),
+      config = require(path.join(__dirname + "/../config.json"));
       bot = new Discord.Client();
 
 // VARIABLES
@@ -14,7 +16,7 @@ function log(text) {
 
 // CONNECTION EVENTS
 bot.on('ready', () => {
-  log(`Logged in on ${client.guilds.size} servers!`);
+  log(`Logged in on ${bot.guilds.size} servers!`);
 });
 
 // ON MESSAGE
@@ -24,6 +26,4 @@ bot.on('message', async message => {
   }
 });
 
-var token = fs.readFile('../zixyl.txt', 'utf8', function (err,data) { return data; });
-log(token)
-bot.login(token);
+bot.login(config.token);
