@@ -16,13 +16,13 @@ function log(text) {
 
 // CONNECTION EVENTS
 bot.on('ready', () => {
-  log(`Logged in on ${bot.guilds.size} servers!`);
+  log(`Connected to Discord Servers.`);
 });
 
 // ON MESSAGE
 bot.on('message', async message => {
   if (message.content === prefix + 'ping') {
-    message.reply(':ping_pong: Pong');
+    message.reply(':ping_pong: Pong\n:house: ${bot.guilds.size}');
   }
 });
 
