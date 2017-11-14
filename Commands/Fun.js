@@ -1,6 +1,6 @@
 if (commandIs('giveaway', message)) {
     let perm = message.channel.permissionsFor(message.member).has('MENTION_EVERYONE') || message.author.id == 189400912333111297;
-    if (perm == false) {message.channel.send("Error: You need to have the Permission: Music4All Admin"); return;}
+    if (perm == false) {message.channel.send("Error: You need to have the Permission: Mention Everyone"); return;}
     if (!slasharg[1] || !slasharg[2]) {message.channel.send("Error: `You gotta put in -giveaway/[title]/[description]`"); return;}
     if (!slasharg[3]) {time = 300000} else {time = slasharg[3]*60000}
       var embeded = new Discord.RichEmbed()
