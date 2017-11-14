@@ -7,5 +7,6 @@ exports.play = async function (i) {
             `**${i.config.prefix}status** Basic bot statistics`];
             i.msg.author.send(lines.join("\n"));
             i.msg.channel.send(`Slid into your DMs :wink:`);
+        break
     }
 }
