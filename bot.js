@@ -1,16 +1,17 @@
 // NODE.JS REQUIREMENTS
-const Discord = require("discord.js"),
-      moment = require('moment'),
-      fs = require('fs'),
-      path = require('path'),
-      token = require(path.join(__dirname + "/../token.json"));
-      config = require("./config.json");
-      bot = new Discord.Client();
+const discord = require("discord.js");
+const moment = require('moment');
+const fs = require('fs');
+const path = require('path');
+const token = require(path.join(__dirname + "/../token.json"));
+const config = require("./config.json");
+const bot = new discord.Client();
 
 // COMMAND IMPORTER
 const imports = {
   msg:undefined,
   args:undefined,
+  config:config,
   bot:bot
 };
 
@@ -22,19 +23,26 @@ function log(text) {
 // CONNECTION EVENTS
 bot.on('ready', () => {
   log(`Connected to ${bot.guilds.size} servers!`);
+  bot.user.setGame("Type x/help");
 });
 
 // ON MESSAGE
 bot.on('message', async message => {
-  let command = message.content.split(" ")[0].substr(config.prefix.length);
+  let cmd = message.content.split(" ")[0].substr(config.prefix.length);
   let arguments = message.content.split(" "); arguments[0].substr(config.prefix.length);
 
-  let file = `./${config.commandPrefix}${command}${config.commandSuffix}`;
-  if (fs.existsSync(file)) {
-    imports.msg = message;
-    imports.args = arguments;
-    require(file).play(imports);
-  }
+  for (let i = 0; i < config.commandLoader.length; i++) {
+    var command = config.commandLoader[i]
+    if (command.name == cmd) {
+      let file = `./${config.commandPrefix}${command.file}${config.commandSuffix}`;
+      if (fs.existsSync(file)) {
+        imports.msg = message;
+        imports.args = arguments;
+        require(file).play(imports);
+      }
+      break
+    }
+  };
 });
 
 bot.login(token.token);

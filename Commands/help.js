@@ -1,7 +1,14 @@
+import { RichEmbed } from "discord.js";
+
 exports.play = async function (i) {
-    i.msg.author.send(`**Commands**
-\n**x/help** Sends this message
-**x/ping** Pong
-**x/status** Gives bot statistics`);
-    i.msg.reply(`Slid into your DMs :wink:`);
+    switch (i.args[0]) {
+        case "help":
+            var lines = ["**Commands**", ""
+            `**${i.config}help** DMs author command list`,
+            `**${i.config}ping** Bot response time in milliseconds`,
+            `**${i.config}status** Basic bot statistics`];
+            i.msg.author.send(lines.join("\n"));
+            i.msg.channel.send(`Slid into your DMs :wink:`);
+            break
+    }
 }
