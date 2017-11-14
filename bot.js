@@ -12,6 +12,10 @@ const imports = {
   msg:undefined,
   args:undefined,
   config:config,
+  f: {
+    log: function (text) { log(text) }
+  },
+  d:discord,
   bot:bot
 };
 
@@ -28,8 +32,10 @@ bot.on('ready', () => {
 
 // ON MESSAGE
 bot.on('message', async message => {
+  if (!message.content.toLowerCase().startsWith(config.prefix)) return;
+
   let cmd = message.content.split(" ")[0].substr(config.prefix.length);
-  let arguments = message.content.split(" "); arguments[0].substr(config.prefix.length);
+  let args = message.content.split(" "); args[0] = args[0].substr(config.prefix.length);
 
   for (let i = 0; i < config.commandLoader.length; i++) {
     var command = config.commandLoader[i]
@@ -37,7 +43,7 @@ bot.on('message', async message => {
       let file = `./${config.commandPrefix}${command.file}${config.commandSuffix}`;
       if (fs.existsSync(file)) {
         imports.msg = message;
-        imports.args = arguments;
+        imports.args = args;
         require(file).play(imports);
       }
       break
