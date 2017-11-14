@@ -21,3 +21,17 @@ if (commandIs('giveaway', message)) {
       m.edit(embeded);
   }, time);
   }
+
+if (commandIs('vote', message)) { // Be able to vote with --vote [question]
+    var words = '';
+    for (var i = 0; i != args.length-1; i++) {
+        words = words + ' ' + args[i + 1];
+      }
+    var embeded = new Discord.RichEmbed()
+            .setAuthor(message.author.username, message.author.avatarURL)
+            .addField("It's time to vote!", words)
+            .setFooter("");
+    m = await message.channel.send(embeded);
+    await m.react("👍");
+    await m.react("👎");
+  }
