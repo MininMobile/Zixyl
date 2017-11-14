@@ -3,8 +3,17 @@
     "commandSuffix": ".js",
     "commandPrefix": "Commands/",
     "commandLoader": [
-        "help",
-        "ping",
-        "status"
+        {
+            "name":"help",
+            "file":"Help"
+        },
+        {
+            "name":"status",
+            "file":"Useful"
+        },
+        {
+            "name":"ping",
+            "file":"ping"
+        }
     ]
 }

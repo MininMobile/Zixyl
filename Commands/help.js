@@ -1,7 +1,11 @@
 exports.play = async function (i) {
-    i.msg.author.send(`**Commands**
-\n**x/help** Sends this message
-**x/ping** Pong
-**x/status** Gives bot statistics`);
-    i.msg.reply(`Slid into your DMs :wink:`);
+    switch (i.args[0].toLowerCase()) {
+        case "help":
+            var lines = ["**Commands**", "",
+            `**${i.config.prefix}help** DMs author command list`,
+            `**${i.config.prefix}ping** Bot response time in milliseconds`,
+            `**${i.config.prefix}status** Basic bot statistics`];
+            i.msg.author.send(lines.join("\n"));
+            i.msg.channel.send(`Slid into your DMs :wink:`);
+    }
 }

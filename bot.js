@@ -1,16 +1,21 @@
 // NODE.JS REQUIREMENTS
-const Discord = require("discord.js"),
-      moment = require('moment'),
-      fs = require('fs'),
-      path = require('path'),
-      token = require(path.join(__dirname + "/../token.json"));
-      config = require("./config.json");
-      bot = new Discord.Client();
+const discord = require("discord.js");
+const moment = require('moment');
+const fs = require('fs');
+const path = require('path');
+const token = require(path.join(__dirname + "/../token.json"));
+const config = require("./config.json");
+const bot = new discord.Client();
 
 // COMMAND IMPORTER
 const imports = {
   msg:undefined,
   args:undefined,
+  config:config,
+  f: {
+    log: function (text) { log(text) }
+  },
+  d:discord,
   bot:bot
 };
 
@@ -21,33 +26,29 @@ function log(text) {
 
 // CONNECTION EVENTS
 bot.on('ready', () => {
-<<<<<<< HEAD
-  log(`Connected to Discord Servers.`);
-=======
   log(`Connected to ${bot.guilds.size} servers!`);
->>>>>>> refs/remotes/origin/master
+  bot.user.setGame("Type x/help");
 });
 
 // ON MESSAGE
 bot.on('message', async message => {
-<<<<<<< HEAD
-  if (message.content === prefix + 'ping') {
-    message.reply(':ping_pong: Pong\n:house: ${bot.guilds.size}');
-  }
-});
+  if (!message.content.toLowerCase().startsWith(config.prefix)) return;
 
-bot.login(config.token);
-=======
-  let command = message.content.split(" ")[0].substr(config.prefix.length);
-  let arguments = message.content.split(" "); arguments[0].substr(config.prefix.length);
+  let cmd = message.content.split(" ")[0].substr(config.prefix.length);
+  let args = message.content.split(" "); args[0] = args[0].substr(config.prefix.length);
 
-  let file = `./${config.commandPrefix}${command}${config.commandSuffix}`;
-  if (fs.existsSync(file)) {
-    imports.msg = message;
-    imports.args = arguments;
-    require(file).play(imports);
-  }
+  for (let i = 0; i < config.commandLoader.length; i++) {
+    var command = config.commandLoader[i]
+    if (command.name == cmd) {
+      let file = `./${config.commandPrefix}${command.file}${config.commandSuffix}`;
+      if (fs.existsSync(file)) {
+        imports.msg = message;
+        imports.args = args;
+        require(file).play(imports);
+      }
+      break
+    }
+  };
 });
 
 bot.login(token.token);
->>>>>>> refs/remotes/origin/master
