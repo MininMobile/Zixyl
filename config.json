@@ -12,16 +12,16 @@
             "file":"Useful"
         },
         {
-            "name":"ping",
-            "file":"ping"
-        },
-        {
             "name":"giveaway",
             "file":"Fun"
         },
         {
-            "name":"Vote",
+            "name":"vote",
             "file":"Fun"
+        },
+        {
+            "name":"ping",
+            "file":"ping"
         }
     ]
 }
