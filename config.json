@@ -14,6 +14,15 @@
         {
             "name":"ping",
             "file":"ping"
+        },
+        {
+            "name":"giveaway",
+            "file":"Fun"
+
+        },
+        {
+          "name":"vote",
+          "file":"Fun"
         }
     ]
 }
