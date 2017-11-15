@@ -7,6 +7,6 @@ exports.play = async function (i) {
             `**Channels** ${i.bot.channels.size}`];
             var embed = new i.d.RichEmbed().setDescription(lines.join("\n"));
             i.msg.channel.send(embed);
+        break
     }
-    
 }

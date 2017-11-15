@@ -12,6 +12,14 @@
             "file":"Useful"
         },
         {
+            "name":"giveaway",
+            "file":"Fun"
+        },
+        {
+            "name":"vote",
+            "file":"Fun"
+        },
+        {
             "name":"ping",
             "file":"ping"
         }
