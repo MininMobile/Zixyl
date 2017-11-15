@@ -7,30 +7,38 @@ exports.play = async function (i) {
         break
       }
 
-      slasharg = i.msg.split("/");
+      var slasharg = i.msg.content.split("/");
+      slasharg.shift();
 
       if (!slasharg[1] || !slasharg[2]) {
-        i.msg.channel.send("Error: `You gotta put in -giveaway/[prize]/[description]/[time (minutes)]`");
+        i.msg.channel.send("Error; it has to follow this template: `x/giveaway /[prize]/[description]/[time (seconds)]`\nNote the space between `x/giveaway` and `/[prize]`, it wont work if you forget that\n`time` is optional");
         break
       }
-      if (!slasharg[3] || isNaN(slasharg[3])) { time = ; } else { time = slasharg[3]*60000; }
-      var embeded = new Discord.RichEmbed()
+
+      var time = 10000;
+      if (slasharg[3]) { time = parseInt(slasharg[3])*1000; }
+      
+      var embeded = new i.d.RichEmbed()
         .setAuthor(i.msg.author.username, i.msg.author.avatarURL)
-        .setTitle("")
-        .addField(slasharg[1], slasharg[2])
+        .setTitle("Giveaway Started!")
+        .addField(`The Prize`, slasharg[1])
+        .addField(`Description`, slasharg[2])
+        .addField(`And it lasts for`, `${slasharg[3]/60000} minutes.`)
         .setFooter("Press the reaction below to enter.");
       var m = await i.msg.channel.send(embeded);
       m.react("🎉");
-
-      setTimeout(function(){
+      
+      setTimeout(function() {
+        m.reactions.count;
         var memberzz = "ERROR";
-        m.clearReactions();
-        var embeded = new Discord.RichEmbed()
-        .setAuthor(i.msg.author.username, i.msg.author.avatarURL)
-        .setTitle("")
-        .addField("Giveaway over.", "Congratulations to: " + memberzz + " for winning " + slasharg[1])
-        .setFooter("We collected " + 0 + " entries.");
+        embeded = new i.d.RichEmbed()
+          .setAuthor(i.msg.author.username, i.msg.author.avatarURL)
+          .setTitle("Giveaway Over")
+          .addField("Winner", memberzz)
+          .addField("Their Prize", slasharg[1])
+          .setFooter("We collected " + 0 + " entries.");
         m.edit(embeded);
+        m.clearReactions();
       }, time);
     break
     case "vote":
