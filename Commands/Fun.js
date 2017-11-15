@@ -29,7 +29,7 @@ exports.play = async function (i) {
       m.react("🎉");
       
       setTimeout(function() {
-        m.reactions.count;
+        console.log(m.reactions.get("🎉"));
         var memberzz = "ERROR";
         embeded = new i.d.RichEmbed()
           .setAuthor(i.msg.author.username, i.msg.author.avatarURL)
