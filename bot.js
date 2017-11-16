@@ -23,7 +23,7 @@ function log(text) {
 // CONNECTION EVENTS
 bot.on('ready', () => {
   log(`Connected to ${bot.guilds.size} servers!`);
-  bot.user.setGame("Type x/help");
+  bot.user.setGame("Zixyl | Type x/help");
 });
 
 // ON MESSAGE
