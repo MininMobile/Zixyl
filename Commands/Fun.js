@@ -1,45 +1,57 @@
 exports.play = async function (i) {
   switch (i.args[0]) {
     case "giveaway":
+      let perm = i.msg.channel.permissionsFor(i.msg.member).has('MENTION_EVERYONE') || i.msg.author.id == 189400912333111297;
       if (perm == false) { 
         i.msg.channel.send("Error: You need to have the Permission: Mention Everyone");
-        return
+        break
       }
 
-      let perm = i.msg.channel.permissionsFor(i.msg.member).has('MENTION_EVERYONE') || i.msg.author.id == 189400912333111297;
+      var slasharg = i.msg.content.split("/");
+      slasharg.shift();
 
       if (!slasharg[1] || !slasharg[2]) {
-        i.msg.channel.send("Error: `You gotta put in -giveaway/[title]/[description]`");
-        return
+        i.msg.channel.send("Error; it has to follow this template: `x/giveaway /[prize]/[description]/[time (seconds)]`\nNote the space between `x/giveaway` and `/[prize]`, it wont work if you forget that\n`time` is optional");
+        break
       }
-      if (!slasharg[3]) { time = 300000; } else { time = slasharg[3]*60000; }
-      var embeded = new Discord.RichEmbed()
+
+      var time = 10000;
+      if (slasharg[3]) { time = parseInt(slasharg[3])*1000; }
+      
+      var embeded = new i.d.RichEmbed()
         .setAuthor(i.msg.author.username, i.msg.author.avatarURL)
-        .setTitle("")
-        .addField(slasharg[1], slasharg[2])
+        .setTitle("Giveaway Started!")
+        .addField(`The Prize`, slasharg[1])
+        .addField(`Description`, slasharg[2])
+        .addField(`And it lasts for`, `${slasharg[3]/60000} minutes.`)
         .setFooter("Press the reaction below to enter.");
       var m = await i.msg.channel.send(embeded);
       m.react("🎉");
-
-      setTimeout(function(){
-        var memberzz = "ERROR";
-        m.clearReactions();
-        var embeded = new Discord.RichEmbed()
-        .setAuthor(i.msg.author.username, i.msg.author.avatarURL)
-        .setTitle("")
-        .addField("Giveaway over.", "Congratulations to: " + memberzz + " for winning " + slasharg[1])
-        .setFooter("We collected " +  + " entries.");
+      
+      setTimeout(function() {
+        var users = [];
+        m.reactions.get("🎉").users.forEach(user => {
+          if (user.id == "379713918194679808") { } else {
+            users.push(`<@${user.id}>`);
+          }
+        });
+        var member = users[Math.floor(Math.random() * users.length)];
+        embeded = new i.d.RichEmbed()
+          .setAuthor(i.msg.author.username, i.msg.author.avatarURL)
+          .setTitle("Giveaway Over")
+          .addField("Winner", member)
+          .addField("Their Prize", slasharg[1])
+          .setFooter("We collected " + 0 + " entries.");
         m.edit(embeded);
+        m.clearReactions();
       }, time);
     break
     case "vote":
-      var words = '';
-      for (var i = 0; i != i.args.length-1; i++) {
-        words = words + ' ' + i.args[i + 1];
-      }
-      var embeded = new Discord.RichEmbed()
+      i.args.shift();
+      var words = i.args.join(" ");
+      var embeded = new i.d.RichEmbed()
         .setAuthor(i.msg.author.username, i.msg.author.avatarURL)
-        .addField("It's time to vote!", words)
+        .setDescription(words)
         .setFooter("");
       m = await i.msg.channel.send(embeded);
       await m.react("👍");
