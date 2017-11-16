@@ -15,15 +15,15 @@ exports.play = async function (i) {
         break
       }
 
-      var time = 10000;
-      if (slasharg[3]) { time = parseInt(slasharg[3])*1000; }
+      var time = 60000;
+      if (slasharg[3]) { time = parseInt(slasharg[3])*60000; }
 
       var embeded = new i.d.RichEmbed()
         .setAuthor(i.msg.author.username, i.msg.author.avatarURL)
         .setTitle("Giveaway Started!")
         .addField(`The Prize`, slasharg[1])
         .addField(`Description`, slasharg[2])
-        .addField(`And it lasts for`, `${slasharg[3]/60000} minutes.`)
+        .addField(`And it lasts for`, Math.floor(slasharg[3]) + ` minutes.`)
         .setFooter("Press the reaction below to enter.");
       var m = await i.msg.channel.send(embeded);
       m.react("🎉");
