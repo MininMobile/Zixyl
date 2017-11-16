@@ -41,7 +41,7 @@ exports.play = async function (i) {
           .setTitle("Giveaway Over")
           .addField("Winner", member)
           .addField("Their Prize", slasharg[1])
-          .setFooter("We collected " + users.length + " entrie(s).");
+          .setFooter("We collected " + users.length + " entries.");
         m.edit(embeded);
         m.clearReactions();
       }, time);
