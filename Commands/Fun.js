@@ -29,12 +29,17 @@ exports.play = async function (i) {
       m.react("🎉");
       
       setTimeout(function() {
-        console.log(m.reactions.get("🎉"));
-        var memberzz = "ERROR";
+        var users = [];
+        m.reactions.get("🎉").users.forEach(user => {
+          if (user.id == "379713918194679808") { } else {
+            users.push(`<@${user.id}>`);
+          }
+        });
+        var member = users[Math.floor(Math.random() * users.length)];
         embeded = new i.d.RichEmbed()
           .setAuthor(i.msg.author.username, i.msg.author.avatarURL)
           .setTitle("Giveaway Over")
-          .addField("Winner", memberzz)
+          .addField("Winner", member)
           .addField("Their Prize", slasharg[1])
           .setFooter("We collected " + 0 + " entries.");
         m.edit(embeded);
