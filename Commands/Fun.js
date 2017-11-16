@@ -2,7 +2,7 @@ exports.play = async function (i) {
   switch (i.args[0]) {
     case "giveaway":
       let perm = i.msg.channel.permissionsFor(i.msg.member).has('MENTION_EVERYONE') || i.msg.author.id == 189400912333111297;
-      if (perm == false) { 
+      if (perm == false) {
         i.msg.channel.send("Error: You need to have the Permission: Mention Everyone");
         break
       }
@@ -17,7 +17,7 @@ exports.play = async function (i) {
 
       var time = 10000;
       if (slasharg[3]) { time = parseInt(slasharg[3])*1000; }
-      
+
       var embeded = new i.d.RichEmbed()
         .setAuthor(i.msg.author.username, i.msg.author.avatarURL)
         .setTitle("Giveaway Started!")
@@ -27,7 +27,7 @@ exports.play = async function (i) {
         .setFooter("Press the reaction below to enter.");
       var m = await i.msg.channel.send(embeded);
       m.react("🎉");
-      
+
       setTimeout(function() {
         var users = [];
         m.reactions.get("🎉").users.forEach(user => {
@@ -41,7 +41,7 @@ exports.play = async function (i) {
           .setTitle("Giveaway Over")
           .addField("Winner", member)
           .addField("Their Prize", slasharg[1])
-          .setFooter("We collected " + 0 + " entries.");
+          .setFooter("We collected " + users.length + " entrie(s).");
         m.edit(embeded);
         m.clearReactions();
       }, time);
